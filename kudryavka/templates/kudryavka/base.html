@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Kudryavka</title>
+
+    {% block styles %}
+    {% load staticfiles %}
+    <link href="{% static "css/main.css" %}" rel="stylesheet" type="text/css"/>
+     <script src="{% static "js/jquery-3.0.0.min.js" %}"></script>
+    <script src="{% static "js/main.js" %}"></script>
+{#     <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet"> #}
+    {% endblock %}
+
+
+  </head>
+  <body>
+    <div class="open navbar" role="navigation">
+      <button type="button" class="toggle"></button>
+      <div id="menu">
+        <ul>
+          <li class="menu-item"><a href="{% url 'index' %}">Index</a></li> |
+          <li class="menu-item"><a href="{% url 'projects' %}">Projects</a></li> |
+        </ul>
+      </div>
+      <div id="admin">
+        <ul>
+          <li class="menu-item"><a href="{% url 'admin:index' %}">Admin</a></li> |
+        </ul>
+        <span class="time">{% now "d-m-Y" %}</span> |
+        <span class="user"></span>
+      </div>
+
+    </div>
+    <div class="closed navbar hidden">
+      <button class="toggle"></button>
+    </div>
+
+    <div class="content">
+
+      <div class="page">
+        <div class="sidebar">
+          {% include "kudryavka/sidebar.html" %}
+        </div>
+        <div class="main">
+          {% block body %}{% endblock %}
+        </div>
+      </div>
+
+  </div>
+
+  </body>
+</html>
+

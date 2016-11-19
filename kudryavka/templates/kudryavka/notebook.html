@@ -1,0 +1,38 @@
+
+{% extends "kudryavka/base.html" %}
+
+{% block body %}
+{% load mptt_tags %}
+
+<h3>{{ project.title }}</h3>
+
+<p>{{ project.description }}</p>
+
+<div class="table-wrap">
+{% recursetree posts %}
+  {% if node.is_root_node %}
+    <ul class="notebook">{{ children }}
+  {% else %}
+    <li class="{{ node.post_type }} lvl-{{ node.level }} H{{ node.size }}">
+    {% if node.link %}
+      <span><a href="{{ node.link }}">{{ node.title}}</span></a>
+    {% else %}
+      <span>{{ node.title }}</span>
+    {% endif %}
+    {% if node.count_progress %}
+      [{{ node.done_count }}/{{ node.child_count }}]
+    {% endif %}
+    {% if node.text %}
+      <br><span class="text">{{ node.text }}</span>
+    {% endif %}
+    {% if not node.is_leaf_node %}
+         <ul>{{ children }} </ul>
+    {% endif %}
+  {% endif %}
+  </li>
+{% endrecursetree %}
+</ul>
+
+
+  </div>
+{% endblock %}

@@ -1,0 +1,5 @@
+.DS_Store
+*.pyc
+kudryavka/templates/kudryavka/edit_notebook.html
+kudryavka/forms.py
+project/settings.py

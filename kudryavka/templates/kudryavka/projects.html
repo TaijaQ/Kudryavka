@@ -1,0 +1,69 @@
+
+{% extends "kudryavka/base.html" %}
+
+{% block body %}
+{% load mptt_tags %}
+<h3>{{ title }}</h3>
+
+<p>{{ text }}</p>
+
+<div class="table-wrap"><table class="table project-table">
+<thead>
+  <tr>
+    <th></th>
+    <th colspan="2" class="left-align">Project</th>
+    <th class="left-align">Description</th>
+    <th>Category</th>
+    <th>%</th>
+    <th>N</th>
+    <th>T</th>
+    <th>ALL</th>
+    <th></th>
+  </tr>
+  </thead>
+  <tbody>
+    {% recursetree projects %}
+      <tr>
+      <td></td>
+        {% if node.is_root_node %}
+        <td colspan="2" class="left-align root">
+        {% else %}
+        <td></td>
+        <td class="left-align child">
+        {% endif %}
+        <a href="{% url 'notebook' project_id=node.id %}">{{ node.title }}</a>
+        </td>
+        <td class="left-align">{{ node.description }}</td>
+        <td class="{{ node.category }}">{{ node.category }}</td>
+        <td class="progress {{ node.progress }}">{{ node.progress }}%</td>
+        {% if node.notes == 0 %}
+          <td class="note count zero">{{ node.notes }}</td>
+        {% elif node.notes > 10 %}
+          <td class="note count tens">{{ node.notes }}</td>
+        {% else %}
+          <td class="note count {{ node.notes }}">{{ node.notes }}</td>
+        {% endif %}
+        {% if node.todos == 0 %}
+          <td class="todo count zero">{{ node.todos }}</td>
+        {% elif node.todos > 10 %}
+          <td class="todo count tens">{{ node.todos }}</td>
+        {% else %}
+          <td class="todo count {{ node.todos }}">{{ node.todos }}</td>
+        {% endif %}
+        {% if node.total == 0 %}
+          <td class="total count zero">{{ node.total }}</td>
+        {% elif node.total > 10 %}
+          <td class="total count tens">{{ node.total }}</td>
+        {% else %}
+          <td class="total count {{ node.total }}">{{ node.total }}</td>
+        {% endif %}
+        <td></td>
+       </tr>
+       {% if not node.is_leaf_node %}
+        <tr>{{ children }}</tr>
+        {% endif %}
+  {% endrecursetree %}
+  </tbody>
+
+</table></div>
+{% endblock %}
