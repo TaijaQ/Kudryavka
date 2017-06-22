@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.postgres',
     'kudryavka',
     'pytz',
-    'mptt'
+    'mptt',
+    'django_extensions'
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -85,7 +86,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': os.environ['DATABASE_NAME'],
         'USER': os.environ['DATABASE_USER'],
-        'PASSWORD': os.environ['DATABASE_PASSWORD'],
+        'PASSWORD': os.environ['USER_PASSWORD'],
         'HOST': '127.0.0.1',
         'PORT': '5432',
         'ATOMIC_REQUESTS': True,

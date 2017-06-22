@@ -1,6 +1,9 @@
 Django==1.9.7
+django-extensions==1.7.9
 django-jquery==1.12.2
 django-mptt==0.8.6
 parsedatetime==2.1
 psycopg2==2.6.2
 pytz==2016.4
+argparse==1.2.1
+wsgiref==0.1.2
