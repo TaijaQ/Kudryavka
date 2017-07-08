@@ -45,50 +45,42 @@ This is a work in progress. My plan is to add inline editing in the notebooks, a
 - Extensions
     + Pytz
     + Django-mptt
+    + Django-dotenv
 - HTML/CSS
 - JavaScript
     + jQuery
 
 # Installation
 
-If you're new to Django, I highly recommend looking at the detailed instructions in the [Setup](https://github.com/TaijaQ/Kudryavka/wiki/Setup) wiki page.
+> **NOTE!** If you're new to Django, or simply not used to setting up someone else's project for your use, I highly recommend looking at the more detailed instructions in the [Setup](https://github.com/TaijaQ/Kudryavka/wiki/Setup) wiki page.
 
-First clone the project locally.
+First clone the project locally using git.
 
     $ git clone git@github.com:TaijaQ/Kudryavka.git
 
-I recommend creating a virtual environment using virtualenvwrapper. This creates the environment and installs the packages in the `requirements.txt` file:
+I recommend creating a virtual environment using `virtualenvwrapper`. This command creates the environment and installs the packages in the `requirements.txt` file:
 
     $ mkvirtualenv -r requirements.txt env_name
 
-Next create the Postgres database and add the database name, user and password to the settings, and run:
+Next create the Postgres database and add the database name, user and password to the settings. Then migrate it:
 
-    (env) $ ./manage.py migrate
+    (env_name) $ ./manage.py migrate
 
 ## Configuration
 
-We'll need to configure your settings before we can get to work. There are a few envirnoment variables used in the production settings. Run:
+There are a few envirnoment variables needed in the settings. The `django-dotenv` package supplies an implementation of `dotenv` for django. Create a file named `.env` in the project folder and add these lines to it, with your own information:
 
-    (env) $ nano secrets.sh
+    SECRET_KEY='your_secret_key'
+    ACCESS_TOKEN=''
+    DEBUG=True
+    DATABASE_USER='user'
+    DATABASE_NAME='name'
+    USER_PASSWORD='password'
+    TIME_ZONE='Europe/Helsinki'
 
-Then add these lines to it:
+Since you don't ever run `django-admin startproject`, which will automatically add a randomly-generated `SECRET_KEY` to a project, you can get one with [MiniWebTool's generator](http://www.miniwebtool.com/django-secret-key-generator/).
 
-    export SECRET_KEY='your_secret_key'
-    export ACCESS_TOKEN=''
-    export DEBUG=True
-    export DATABASE_USER='user'
-    export DATABASE_NAME='name'
-    export USER_PASSWORD='password'
-    export TIME_ZONE='Europe/Helsinki'
-
-Replacing the variables with your own information. Since you don't ever run `django-admin startproject`, which will automatically add a randomly-generated `SECRET_KEY` to a project, you can get one with [MiniWebTool's generator](http://www.miniwebtool.com/django-secret-key-generator/).
-
-After that, you will need to to load the variables into every terminal session with the command:
-
-    (env) $ source secrets.sh
-
-**NOTE!**
-Remember to add `secrets.sh` to your `.gitignore` file.
+>**NOTE!** Remember to add `.env` to your `.gitignore` file - don't commit it.
 
 ## Running the server
 
